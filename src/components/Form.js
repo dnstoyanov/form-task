@@ -7,13 +7,15 @@ function Form() {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm();
+
   const onSubmit = data => {
     axios
-      .post('https://eo7ajdpb7bo1w7l.m.pipedream.net', data)
+      .post('https://eoltdpdir508ryi.m.pipedream.net', data)
       .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .catch(err => alert(`Error: ${err}`));
   };
 
   return (
@@ -66,7 +68,13 @@ function Form() {
             className='input-field'
             type='password'
             placeholder='Password'
-            {...register('password', { required: 'This field is required' })}
+            {...register('password', {
+              required: 'This field is required',
+              minLength: {
+                value: 6,
+                message: 'Password must have at minimum 6 characters',
+              },
+            })}
           />
           {errors.password && <span>{errors.password.message}</span>}
         </div>
@@ -76,7 +84,13 @@ function Form() {
             className='input-field'
             type='password'
             placeholder='Repeat Password'
-            {...register('repeatPassword', { required: 'This field is required' })}
+            {...register('repeatPassword', {
+              required: 'This field is required',
+              validate: value => {
+                const { password } = getValues();
+                return password === value || 'Passwords should match!';
+              },
+            })}
           />
           {errors.repeatPassword && <span>{errors.repeatPassword.message}</span>}
         </div>
@@ -99,9 +113,7 @@ function Form() {
             className='input-field-select'
             {...register('country', { required: 'This field is required' })}
           >
-            <option selected value='empty'>
-              Select your country...
-            </option>
+            <option value=''>Select your country...</option>
             <option value='France'>France</option>
             <option value='Bulgaria'>Bulgaria</option>
             <option value='United Kingdom'>United Kingdom</option>
