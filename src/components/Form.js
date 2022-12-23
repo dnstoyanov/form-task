@@ -9,7 +9,9 @@ function Form() {
     handleSubmit,
     getValues,
     formState: { errors },
-  } = useForm();
+  } = useForm({
+    mode: 'onTouched',
+  });
 
   const onSubmit = data => {
     axios
