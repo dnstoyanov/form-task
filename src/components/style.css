@@ -1,11 +1,12 @@
 .form-page {
-  height: 100vh;
+  height: 100%;
+  padding: 50px;
   background: rgb(5, 156, 203);
   background: linear-gradient(180deg, rgba(5, 156, 203, 1) 0%, rgba(116, 196, 187, 1) 100%);
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .form-container {
